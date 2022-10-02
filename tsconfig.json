@@ -6,7 +6,7 @@
     "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
-      "@modules/*": ["modules/*"],
+      "@application/*": ["application/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
       "@errors/*": ["errors/*"],

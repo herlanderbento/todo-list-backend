@@ -1,15 +1,4 @@
-import express from "express";
-import { AppDataSource } from "../typeorm/data-source";
-
-const app = express();
-
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Data Source has been initialized!");
-  })
-  .catch((err) => {
-    console.error("Error during Data Source initialization", err);
-  });
+import { app } from "./app";
 
 const PORT = process.env.NODE_ENV_PORT || 3000;
 
