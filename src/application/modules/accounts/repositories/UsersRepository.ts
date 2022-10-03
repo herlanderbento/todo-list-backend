@@ -1,5 +1,5 @@
-import { connection } from "@shared/infra/typeorm/ormconfig";
 import { Repository } from "typeorm";
+import { connection } from "@shared/infra/typeorm/ormconfig";
 import { ICreateUserDto } from "../dtos/create-user-dto";
 import { Users } from "../entities/User";
 import { IUserRepository } from "./IUsersRepository";

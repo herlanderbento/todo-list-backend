@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { Todo } from "@application/modules/todo/entities/Todo";
 import { Users } from "../../../application/modules/accounts/entities/User";
 
 export const connection = new DataSource({
@@ -10,6 +11,6 @@ export const connection = new DataSource({
   database: "todo_list",
   synchronize: true,
   migrationsRun: false,
-  entities: [Users],
+  entities: [Users, Todo],
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
 });
