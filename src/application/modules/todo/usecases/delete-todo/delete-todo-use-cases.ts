@@ -13,7 +13,7 @@ export class DeleteTodoUseCases {
     const todo = await this.todoRepository.findById(id);
 
     if (!todo) {
-      throw new AppError("Todo already exists.", 404);
+      throw new AppError("Todo not found.", 404);
     }
 
     await this.todoRepository.delete(id);

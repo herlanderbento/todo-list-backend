@@ -1,0 +1,161 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Todo-list documentation for Dev",
+    "description": "This an API Todo-list",
+    "version": "1.0.0",
+    "contact": {
+      "email": "herlanderbento19@gmail.com"
+    }
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Authentication user",
+        "description": "Authentication user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User authenticated.,"
+          },
+          "400": {
+            "description": "Email or password incorrect."
+          }
+        }
+      }
+    },
+    "/todo": {
+      "post": {
+        "tags": ["Todo"],
+        "summary": "Create a todo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestTodo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Todo created successfully"
+          },
+          "400": {
+            "description": "Todo already exists"
+          },
+          "422": {
+            "description": "Validation fails"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Todo"],
+        "summary": "Todo list",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RequestTodo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todo/{id}": {
+      "put": {
+        "tags": ["Todo"],
+        "summary": "Update a todo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of todo",
+            "type": "string",
+            "format": "uuid",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestTodo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Todo created successfully"
+          },
+          "400": {
+            "description": "Todo already exists"
+          },
+          "422": {
+            "description": "Validation fails"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Todo"],
+        "summary": "Delete a todo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of todo",
+            "type": "string",
+            "format": "uuid",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete todo successfully"
+          },
+          "404": {
+            "description": "Todo not found"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "RequestTodo": {
+        "type": "object",
+        "properties": {
+          "todo": {
+            "type": "string",
+            "description": "Nome da task a ser criada"
+          }
+        }
+      }
+    }
+  }
+}

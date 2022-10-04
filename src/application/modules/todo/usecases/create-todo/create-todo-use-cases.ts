@@ -14,7 +14,13 @@ export class CreateTodoUseCases {
 
   async execute({ todo }: ICreateTodoDto): Promise<Todo> {
     if (!(await createOrUpdateTodoSchemaValidate.isValid({ todo }))) {
-      throw new AppError("Validation fails");
+      throw new AppError("Validation fails", 422);
+    }
+
+    const todoList = await this.todoRepository.findByTodo(todo);
+
+    if (todoList) {
+      throw new AppError("Todo already exists.");
     }
 
     const create = await this.todoRepository.create({

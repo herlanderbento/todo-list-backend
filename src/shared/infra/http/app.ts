@@ -7,6 +7,9 @@ import { router } from "./routes";
 import { connection } from "../typeorm/ormconfig";
 import { AppError } from "@shared/errors/AppError";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "@docs/swagger.json";
+
 const app = express();
 
 app.use(express.json());
@@ -19,6 +22,16 @@ connection
   .catch((err) => {
     console.error("Error during Data Source initialization", err);
   });
+
+app.use("/api-documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get("/swagger", (request: Request, response: Response) => {
+  return response.sendFile(process.cwd() + "/src/documentation/swagger.json");
+});
+
+app.get("/docs", (request: Request, response: Response) => {
+  return response.sendFile(process.cwd() + "/src/documentation/index.html");
+});
 
 app.use(router);
 
