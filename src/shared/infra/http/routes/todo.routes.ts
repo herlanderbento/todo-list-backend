@@ -3,6 +3,7 @@ import { CreateTodoController } from "@application/modules/todo/usecases/create-
 import { TodoListController } from "@application/modules/todo/usecases/todo-list/todo-list-controller";
 import { UpdateTodoController } from "@application/modules/todo/usecases/update-todo/update-todo-controller";
 import { DeleteTodoController } from "@application/modules/todo/usecases/delete-todo/delete-todo-controller";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const todoRoutes = Router();
 
@@ -11,7 +12,9 @@ const todoListController = new TodoListController();
 const updateTodoController = new UpdateTodoController();
 const deleteTodoController = new DeleteTodoController();
 
-todoRoutes.get("/", todoListController.handle);
+todoRoutes.use(ensureAuthenticated)
+
+todoRoutes.get("/",  todoListController.handle);
 todoRoutes.post("/", createTodoController.handle);
 todoRoutes.put("/:id", updateTodoController.handle);
 todoRoutes.delete("/:id", deleteTodoController.handle);

@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction, response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import "reflect-metadata";
 import "express-async-errors";
 import "@shared/container";

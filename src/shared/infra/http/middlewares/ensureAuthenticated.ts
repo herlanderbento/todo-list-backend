@@ -9,7 +9,7 @@ interface IPayload {
   sub: string;
 }
 
-export async function ensureAuthenticated(
+async function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction
@@ -40,7 +40,9 @@ export async function ensureAuthenticated(
     };
 
     next();
-  } catch (error) {
+  } catch (err) {
     throw new AppError("Invalid token!", 401);
   }
 }
+
+export { ensureAuthenticated };

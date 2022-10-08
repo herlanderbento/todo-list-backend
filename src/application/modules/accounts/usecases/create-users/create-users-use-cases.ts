@@ -14,7 +14,7 @@ export class CreateUsersUseCases {
 
   async execute({ name, email, password }: ICreateUserDto): Promise<void> {
     if (!(await createUsersSchemaValidate.isValid({ name, email, password }))) {
-      throw new AppError("Validation fails");
+      throw new AppError("Validation fails", 422);
     }
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);

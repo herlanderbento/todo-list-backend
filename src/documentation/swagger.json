@@ -41,10 +41,49 @@
         }
       }
     },
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create user",
+        "description": "Create user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully."
+          },
+          "400": {
+            "description": "User already exists!"
+          },
+          "422": {
+            "description": "Validation fails"
+          }
+        }
+      }
+    },
     "/todo": {
       "post": {
         "tags": ["Todo"],
         "summary": "Create a todo",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -69,6 +108,7 @@
       "get": {
         "tags": ["Todo"],
         "summary": "Todo list",
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "content": {
@@ -99,6 +139,7 @@
             "required": true
           }
         ],
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -123,6 +164,7 @@
       "delete": {
         "tags": ["Todo"],
         "summary": "Delete a todo",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -155,6 +197,13 @@
             "description": "Nome da task a ser criada"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
